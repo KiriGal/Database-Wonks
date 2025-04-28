@@ -216,3 +216,7 @@ SELECT * FROM wonks_ru.set_user_role(
         _actor_user_id := 1,
         _new_role_name := 'Moderator'
               );
+
+SELECT wonks_ru.export_schema_to_jsonb();
+--    SELECT * FROM wonks_ru.import_schema_from_jsonb('...'::jsonb, 'wonks_ru', 'TRUNCATE'); -- Полная перезапись
+--    SELECT * FROM wonks_ru.import_schema_from_jsonb('...'::jsonb, 'wonks_ru', 'UPSERT'); -- Добавление/Обновление

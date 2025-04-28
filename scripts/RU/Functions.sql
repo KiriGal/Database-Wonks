@@ -2010,3 +2010,165 @@ EXCEPTION
         RETURN QUERY SELECT 'ERROR'::TEXT, 'An unexpected error occurred while setting user role: ' || SQLERRM::TEXT;
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION wonks_ru.export_schema_to_jsonb(
+    _schema_name TEXT DEFAULT 'wonks_ru'
+)
+    RETURNS JSONB
+    LANGUAGE plpgsql
+    SECURITY DEFINER
+    SET search_path = pg_catalog
+AS $$
+DECLARE
+    _table_record RECORD;
+    _table_jsonb JSONB;
+    _result_jsonb JSONB := '{}'::jsonb;
+    _query TEXT;
+BEGIN
+    FOR _table_record IN
+        SELECT table_name
+        FROM information_schema.tables
+        WHERE table_schema = _schema_name AND table_type = 'BASE TABLE'
+        ORDER BY table_name
+        LOOP
+            _query := format(
+                    'SELECT COALESCE(jsonb_agg(row_to_json(t)), ''[]''::jsonb) FROM %I.%I t',
+                    _schema_name,
+                    _table_record.table_name
+                      );
+
+            RAISE NOTICE 'Exporting table: %.%', _schema_name, _table_record.table_name;
+            EXECUTE _query INTO _table_jsonb;
+
+            _result_jsonb := _result_jsonb || jsonb_build_object(_table_record.table_name, _table_jsonb);
+        END LOOP;
+
+    RETURN _result_jsonb;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE WARNING 'Error during schema export: %', SQLERRM;
+        RETURN jsonb_build_object('error', SQLERRM);
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION wonks_ru.import_schema_from_jsonb(
+    _data JSONB,
+    _schema_name TEXT DEFAULT 'wonks_ru',
+    _mode TEXT DEFAULT 'TRUNCATE'
+)
+    RETURNS TABLE (
+                      status_code TEXT,
+                      message TEXT
+                  )
+    LANGUAGE plpgsql
+    SECURITY DEFINER
+    SET search_path = pg_catalog
+AS $$
+DECLARE
+    _import_order TEXT[] := ARRAY[
+        'roles', 'categories', 'tags', 'users',
+        'articles',
+        'article_tags',
+        'comments',
+        'favourites',
+        'ratings',
+        'subscriptions',
+        'notifications',
+        'reports'
+        ];
+    _table_name TEXT;
+    _json_array JSONB;
+    _query TEXT;
+    _pk_column TEXT := 'id';
+    _cols TEXT;
+    _val TEXT;
+    _rec RECORD;
+BEGIN
+    RAISE WARNING 'Starting JSON import for schema %. Mode: %. THIS CAN BE DESTRUCTIVE!', _schema_name, _mode;
+
+    IF upper(_mode) = 'TRUNCATE' THEN
+        RAISE WARNING 'TRUNCATE MODE: Deleting all data from tables in schema % in reverse order.', _schema_name;
+        FOREACH _table_name IN ARRAY reverse(_import_order) LOOP
+                _query := format('TRUNCATE TABLE %I.%I RESTART IDENTITY CASCADE;', _schema_name, _table_name);
+                RAISE NOTICE 'Executing: %', _query;
+                EXECUTE _query;
+            END LOOP;
+        RAISE WARNING 'TRUNCATE MODE: Data deletion complete.';
+    ELSIF upper(_mode) <> 'UPSERT' THEN
+        RETURN QUERY SELECT 'INVALID_MODE'::TEXT, 'Invalid import mode specified. Use TRUNCATE or UPSERT.'::TEXT;
+        RETURN;
+    END IF;
+
+    FOREACH _table_name IN ARRAY _import_order LOOP
+            IF _data ? _table_name THEN
+                _json_array := _data -> _table_name;
+
+                IF jsonb_array_length(_json_array) = 0 THEN
+                    RAISE NOTICE 'Skipping empty table: %.%', _schema_name, _table_name;
+                    CONTINUE;
+                END IF;
+
+                RAISE NOTICE 'Importing data for table: %.%', _schema_name, _table_name;
+
+                SELECT string_agg(quote_ident(key), ', ')
+                INTO _cols
+                FROM jsonb_object_keys(_json_array -> 0);
+
+                _query := format(
+                        'INSERT INTO %I.%I (%s) SELECT %s FROM jsonb_populate_recordset(NULL::%I.%I, %L::jsonb)',
+                        _schema_name, _table_name, _cols, _cols, _schema_name, _table_name, _json_array
+                          );
+
+                IF upper(_mode) = 'UPSERT' THEN
+                    SELECT string_agg(format('%I = EXCLUDED.%I', key, key), ', ')
+                    INTO _val
+                    FROM jsonb_object_keys(_json_array -> 0)
+                    WHERE key <> _pk_column;
+
+                    _query := _query || format(' ON CONFLICT (%I) DO UPDATE SET %s', _pk_column, _val);
+                ELSIF upper(_mode) = 'TRUNCATE' THEN
+                    _query := _query || format(' ON CONFLICT (%I) DO NOTHING', _pk_column);
+                END IF;
+
+                RAISE NOTICE 'Executing INSERT for %: %', _table_name, left(_query, 500) || '...';
+                EXECUTE _query;
+                RAISE NOTICE 'Finished INSERT for %.', _table_name;
+
+            ELSE
+                RAISE WARNING 'No data found in JSON for table: %.%', _schema_name, _table_name;
+            END IF;
+        END LOOP;
+
+    RAISE NOTICE 'Resetting sequences...';
+    FOR _rec IN
+        SELECT
+            seq.sequence_name,
+            seq.table_name,
+            seq.column_name
+        FROM information_schema.sequences seq
+                 JOIN information_schema.columns col ON seq.sequence_name = pg_get_serial_sequence(quote_ident(col.table_schema) || '.' || quote_ident(col.table_name), col.column_name)
+        WHERE seq.sequence_schema = _schema_name
+          AND col.table_schema = _schema_name
+        LOOP
+            _query := format(
+                    'SELECT setval(%L, COALESCE(max(%I), 1)) FROM %I.%I',
+                    _schema_name || '.' || _rec.sequence_name,
+                    _rec.column_name,
+                    _schema_name,
+                    _rec.table_name
+                      );
+            RAISE NOTICE 'Resetting sequence for %.% column %', _schema_name, _rec.table_name, _rec.column_name;
+            EXECUTE _query;
+        END LOOP;
+    RAISE NOTICE 'Sequence reset complete.';
+
+
+    RETURN QUERY SELECT 'OK'::TEXT, 'JSON data imported successfully.'::TEXT;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE WARNING 'Error during JSON import for schema %: %', _schema_name, SQLERRM;
+        RETURN QUERY SELECT 'ERROR'::TEXT, 'An error occurred during import: ' || SQLERRM::TEXT;
+END;
+$$;

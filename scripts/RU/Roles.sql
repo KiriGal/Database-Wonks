@@ -168,6 +168,8 @@ GRANT EXECUTE ON FUNCTION wonks_ru.get_reports_paginated_filtered(INTEGER, INTEG
 -- Высшие права Администратора:
 GRANT EXECUTE ON FUNCTION wonks_ru.set_user_role(INTEGER, INTEGER, VARCHAR) TO Админ;
 GRANT EXECUTE ON FUNCTION wonks_ru.set_user_status(INTEGER, INTEGER, wonks_ru.user_status) TO Админ;
+GRANT EXECUTE ON FUNCTION wonks_ru.export_schema_to_jsonb(_schema_name TEXT) TO Админ;
+GRANT EXECUTE ON FUNCTION wonks_ru.import_schema_from_jsonb(_data JSONB, _schema_name TEXT, _mode TEXT) TO Админ;
 
 
 --== Демо пользователи ==--
@@ -188,6 +190,6 @@ ALTER USER moderator_user SET search_path = wonks_ru, public;
 ALTER USER standard_user  SET search_path = wonks_ru, public;
 ALTER USER guest_user     SET search_path = wonks_ru, public;
 
-GRANT CONNECT ON DATABASE "UsefulLinks" TO admin_user, moderator_user, standard_user, guest_user;
+GRANT CONNECT ON DATABASE postgres TO admin_user, moderator_user, standard_user, guest_user;
 GRANT USAGE ON SCHEMA wonks_ru TO admin_user, moderator_user, standard_user, guest_user;
 
