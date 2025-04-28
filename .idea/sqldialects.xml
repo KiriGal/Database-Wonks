@@ -13,5 +13,6 @@
     <file url="file://$PROJECT_DIR$/../../Научная работа/analyze.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/../../Научная работа/functions.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/../../Научная работа/index.sql" dialect="PostgreSQL" />
+    <file url="PROJECT" dialect="PostgreSQL" />
   </component>
 </project>
