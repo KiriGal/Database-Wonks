@@ -29,7 +29,7 @@
 1. Клонируйте репозиторий и перейдите в папку проекта:
 
    ```sh
-   git clone <ваш-репо> && cd <ваш-репо>
+   git clone https://github.com/KiriGal/Database-Wonks.git database && cd database
    ```
 
 2. Запустите весь стек контейнеров:
