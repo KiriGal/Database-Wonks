@@ -57,6 +57,7 @@
   "keyToStringList": {
     "DatabaseDriversLRU": [
       "oracle",
+      "mysql_aurora",
       "postgresql"
     ],
     "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
