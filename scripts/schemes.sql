@@ -5,7 +5,7 @@ CREATE SCHEMA IF NOT EXISTS wonks_en AUTHORIZATION CURRENT_USER;
 
 SELECT current_database();
 ALTER DATABASE postgres
-    SET search_path TO wonks_ru, wonks_en;
+    SET search_path TO wonks_ru;
 
 ALTER DATABASE postgres
     SET search_path TO public;

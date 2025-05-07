@@ -10,13 +10,18 @@
       <user-name>postgres</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="database" qname="@">
-            <node kind="schema" qname="@" />
+          <node negative="1">
+            <node kind="database" qname="@">
+              <node kind="schema" qname="@" />
+            </node>
+            <node kind="database" qname="postgres">
+              <node kind="schema" qname="wonks_ru" />
+            </node>
           </node>
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="postgres@localhost" uuid="af78640e-3044-47bf-9723-60758687e94c">
+    <data-source name="Guest" uuid="af78640e-3044-47bf-9723-60758687e94c">
       <database-info product="PostgreSQL" version="17.3 (Debian 17.3-3.pgdg120+1)" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.7.3" dbms="POSTGRES" exact-version="17.3" exact-driver-version="42.7">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>

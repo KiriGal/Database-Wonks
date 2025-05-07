@@ -9,120 +9,76 @@ VALUES (1, 'Administrator'),
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO Categories (id, name)
-VALUES (1, 'Technology'),
-       (2, 'Science'),
-       (3, 'Lifestyle'),
-       (4, 'Programming'),
-       (5, 'Databases')
+VALUES (1, 'Технологии'),
+       (2, 'Наука'),
+       (3, 'Образ жизни'),
+       (4, 'Программирование'),
+       (5, 'Базы данных')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO Tags (id, name)
 VALUES (1, 'PostgreSQL'),
        (2, 'SQL'),
-       (3, 'Web Development'),
-       (4, 'AI'),
-       (5, 'Machine Learning'),
-       (6, 'Health'),
-       (7, 'Travel'),
-       (8, 'Views'),
-       (9, 'Functions')
+       (3, 'Веб-разработка'),
+       (4, 'ИИ'),
+       (5, 'Машинное обучение'),
+       (6, 'Здоровье'),
+       (7, 'Путешествия'),
+       (8, 'Представления'),
+       (9, 'Функции')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO Users (id, avatar_url, username, email, password_hash, role_id, status, last_login)
-VALUES (1, 'avatars/admin.png', 'AdminUser', 'admin@wonks.ru', 'hashed_password_placeholder', 1, 'activated',
-        NOW() - INTERVAL '1 hour'),
-       (2, 'avatars/editor.png', 'EditorUser', 'editor@wonks.ru', 'hashed_password_placeholder', 2, 'activated',
-        NOW() - INTERVAL '2 hour'),
-       (3, 'avatars/jane.png', 'JaneDoe', 'jane.doe@wonks.ru', 'hashed_password_placeholder', 3, 'activated',
-        NOW() - INTERVAL '30 minutes'),
-       (4, 'avatars/john.png', 'JohnSmith', 'john.smith@wonks.ru', 'hashed_password_placeholder', 3, 'activated',
-        NOW() - INTERVAL '5 minutes'),
-       (5, 'avatars/bob.png', 'BobCoder', 'bob.coder@wonks.ru', 'hashed_password_placeholder', 3, 'activated',
-        NOW() - INTERVAL '1 day')
+VALUES (1, 'avatars/admin.png',  'AdminUser',  'admin@wonks.ru',  'hashed_password_placeholder', 1, 'activated', NOW() - INTERVAL '1 hour'),
+       (2, 'avatars/Moderator.png', 'ModeratorUser', 'moderator@wonks.ru', 'hashed_password_placeholder', 2, 'activated', NOW() - INTERVAL '2 hour'),
+       (3, 'avatars/jane.png',   'JaneDoe',    'jane.doe@wonks.ru','hashed_password_placeholder',3, 'activated', NOW() - INTERVAL '30 minutes'),
+       (4, 'avatars/john.png',   'JohnSmith',  'john.smith@wonks.ru','hashed_password_placeholder',3, 'activated', NOW() - INTERVAL '5 minutes'),
+       (5, 'avatars/bob.png',    'BobCoder',   'bob.coder@wonks.ru','hashed_password_placeholder',3, 'activated', NOW() - INTERVAL '1 day')
 ON CONFLICT (id) DO NOTHING;
 
-INSERT INTO Articles (id, slug, user_id, content, short_description, image, category_id, status, title, created_at,
-                      updated_at)
-VALUES (1, 'intro-to-sql-views', 2, 'Views are virtual tables based on the result-set of an SQL statement...',
-        'A beginner guide to understanding SQL views.', 'images/sql-views.jpg', 5, 'published',
-        'Introduction to SQL Views', NOW() - INTERVAL '3 day', NOW() - INTERVAL '2 day'),
-       (2, 'postgresql-functions-explained', 5,
-        'PostgreSQL functions, also known as stored procedures, allow you to extend the database functionality...',
-        'Deep dive into creating and using PostgreSQL functions.', 'images/pg-functions.png', 4, 'published',
-        'PostgreSQL Functions Explained', NOW() - INTERVAL '2 day', NOW() - INTERVAL '1 day'),
-       (3, 'ai-in-everyday-life', 3,
-        'Artificial intelligence is becoming increasingly integrated into our daily lives...',
-        'Exploring the impact of AI on modern living.', 'images/ai-daily.webp', 1, 'published', 'AI in Everyday Life',
-        NOW() - INTERVAL '1 day', NOW() - INTERVAL '1 day'),
-       (4, 'healthy-eating-tips', 4, 'Maintaining a healthy diet is crucial for well-being...',
-        'Simple tips for a healthier diet.', 'images/healthy-food.jpg', 3, 'moderated', 'Healthy Eating Tips for Beginners',
-        NOW() - INTERVAL '5 hours', NOW() - INTERVAL '1 hour'),
-       (5, 'getting-started-with-wonks-ru', 1, 'Welcome to Wonks.ru! This platform allows you to share knowledge...',
-        'A quick guide on how to use the Wonks.ru platform.', 'noimage.png', 1, 'published',
-        'Getting Started with Wonks.ru', NOW() - INTERVAL '5 day', NOW() - INTERVAL '5 day')
+INSERT INTO Articles (id, slug, user_id, content, short_description, image, category_id, status, title, created_at, updated_at)
+VALUES
+    (1,'vvedenie-v-sql-predstavleniya',2,'Представления — это виртуальные таблицы, основанные на результирующем наборе SQL-запроса...','Руководство для начинающих по пониманию представлений SQL.','images/sql-views.jpg',5,'published','Введение в представления SQL',NOW() - INTERVAL '3 day',NOW() - INTERVAL '2 day'),
+    (2,'funktsii-postgresql-obyasneny',5,'Функции PostgreSQL, также известные как хранимые процедуры, позволяют расширять функциональность базы данных...','Глубокое погружение в создание и использование функций PostgreSQL.','images/pg-functions.png',4,'published','Функции PostgreSQL: подробное объяснение',NOW() - INTERVAL '2 day',NOW() - INTERVAL '1 day'),
+    (3,'ii-v-povsednevnoi-zhizni',3,'Искусственный интеллект всё глубже интегрируется в нашу повседневную жизнь...','Исследуем влияние ИИ на современную жизнь.','images/ai-daily.webp',1,'published','ИИ в повседневной жизни',NOW() - INTERVAL '1 day',NOW() - INTERVAL '1 day'),
+    (4,'sovety-po-zdorovomu-pitaniyu',4,'Поддержание здорового рациона крайне важно для благополучия...','Простые советы для более здорового питания.','images/healthy-food.jpg',3,'moderated','Советы по здоровому питанию для начинающих',NOW() - INTERVAL '5 hours',NOW() - INTERVAL '1 hour'),
+    (5,'znakomstvo-s-wonks-ru',1,'Добро пожаловать на Wonks.ru! Эта платформа позволяет делиться знаниями...','Краткое руководство по использованию платформы Wonks.ru.','noimage.png',1,'published','Знакомство с Wonks.ru',NOW() - INTERVAL '5 day',NOW() - INTERVAL '5 day')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO Article_tags (article_id, tag_id)
-VALUES (1, 1),
-       (1, 2),
-       (1, 8),
-       (2, 1),
-       (2, 2),
-       (2, 9),
-       (2, 4),
-       (3, 4),
-       (3, 5),
-       (4, 6)
+VALUES (1,1),(1,2),(1,8),(2,1),(2,2),(2,9),(2,4),(3,4),(3,5),(4,6)
 ON CONFLICT (article_id, tag_id) DO NOTHING;
 
-
 INSERT INTO Comments (article_id, user_id, content, created_at)
-VALUES (1, 3, 'Great explanation of SQL views, thanks!', NOW() - INTERVAL '1 day'),
-       (1, 4, 'Very helpful for beginners.', NOW() - INTERVAL '23 hours'),
-       (2, 1, 'Excellent article on functions. Consider adding examples with different languages like PL/Python.',
-        NOW() - INTERVAL '10 hours'),
-       (3, 5, 'Fascinating read about AI integration.', NOW() - INTERVAL '5 hours'),
-       (2, 3, 'I always wondered how functions worked in PG. Clear explanation!', NOW() - INTERVAL '1 hour')
+VALUES (1,3,'Отличное объяснение представлений SQL, спасибо!',NOW() - INTERVAL '1 day'),
+       (1,4,'Очень полезно для новичков.',NOW() - INTERVAL '23 hours'),
+       (2,1,'Превосходная статья о функциях. Добавьте, пожалуйста, примеры на PL/Python.',NOW() - INTERVAL '10 hours'),
+       (3,5,'Увлекательный материал про интеграцию ИИ.',NOW() - INTERVAL '5 hours'),
+       (2,3,'Всегда хотел понять, как работают функции в PG. Всё ясно!',NOW() - INTERVAL '1 hour')
 ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO Favourites (user_id, article_id)
-VALUES (3, 1),
-       (4, 1),
-       (1, 2),
-       (3, 2),
-       (5, 3)
+VALUES (3,1),(4,1),(1,2),(3,2),(5,3)
 ON CONFLICT (user_id, article_id) DO NOTHING;
 
 INSERT INTO Ratings (user_id, article_id, value)
-VALUES (3, 1, 5),
-       (4, 1, 4),
-       (1, 2, 5),
-       (5, 2, 4),
-       (3, 3, 5)
+VALUES (3,1,5),(4,1,4),(1,2,5),(5,2,4),(3,3,5)
 ON CONFLICT (user_id, article_id) DO NOTHING;
 
-
 INSERT INTO Notifications (user_id, text, created_at)
-VALUES (3, 'Your article AI in Everyday Life received a new comment.', NOW() - INTERVAL '5 hours'),
-       (2, 'Your article Introduction to SQL Views received a new rating.', NOW() - INTERVAL '1 day'),
-       (1, 'New report submitted regarding user JohnSmith.', NOW() - INTERVAL '1 hour'),
-       (4, 'JaneDoe started following you.', NOW() - INTERVAL '2 days')
+VALUES (3,'Вашу статью «ИИ в повседневной жизни» прокомментировали.',NOW() - INTERVAL '5 hours'),
+       (2,'Ваша статья «Введение в представления SQL» получила новую оценку.',NOW() - INTERVAL '1 day'),
+       (1,'Поступила жалоба на пользователя JohnSmith.',NOW() - INTERVAL '1 hour'),
+       (4,'JaneDoe подписалась на вас.',NOW() - INTERVAL '2 days')
 ON CONFLICT (id) DO NOTHING;
 
-
 INSERT INTO Subscriptions (follower_id, followed_id, notices)
-VALUES (3, 2, true),
-       (4, 3, false),
-       (5, 1, true),
-       (3, 5, true),
-       (1, 3, false)
+VALUES (3,2,true),(4,3,false),(5,1,true),(3,5,true),(1,3,false)
 ON CONFLICT (follower_id, followed_id) DO NOTHING;
 
-
 INSERT INTO Reports (reporter_id, target_id, content, status, date)
-VALUES (3, 4, 'User JohnSmith posted inappropriate comments on article ID 1.', 'dispatched',
-        NOW() - INTERVAL '2 hours'),
-       (5, 3, 'User JaneDoe seems to be spamming ratings.', 'dispatched', NOW() - INTERVAL '1 hour')
+VALUES (3,4,'Пользователь JohnSmith оставил неприемлемые комментарии к статье 1.','dispatched',NOW() - INTERVAL '2 hours'),
+       (5,3,'Пользователь JaneDoe, похоже, спамит оценками.','dispatched',NOW() - INTERVAL '1 hour')
 ON CONFLICT (id) DO NOTHING;
 
 

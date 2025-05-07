@@ -1,6 +1,6 @@
 set search_path = "wonks_ru";
 
-CREATE TABLE wonks_ru.Users
+CREATE TABLE Users
 (
     id            SERIAL,
     avatar_url    VARCHAR(255) NOT NULL DEFAULT 'noimage.png',
@@ -10,17 +10,18 @@ CREATE TABLE wonks_ru.Users
     role_id       INTEGER      NOT NULL,
     status        USER_STATUS  NOT NULL DEFAULT 'activated',
     last_login    TIMESTAMPTZ  NOT NULL DEFAULT now(),
+    created_at    TIMESTAMPTZ NOT NULL DEFAULT now(),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Categories
+CREATE TABLE Categories
 (
     id   SERIAL,
     name VARCHAR(255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Comments
+CREATE TABLE Comments
 (
     id         SERIAL,
     article_id INTEGER      NOT NULL,
@@ -30,7 +31,7 @@ CREATE TABLE wonks_ru.Comments
         PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Articles
+CREATE TABLE Articles
 (
     id          SERIAL,
     slug        TEXT             NOT NULL UNIQUE,
@@ -39,21 +40,21 @@ CREATE TABLE wonks_ru.Articles
     short_description TEXT NOT NULL,
     image       VARCHAR(255)     NOT NULL DEFAULT 'noimage.png',
     category_id INTEGER          NOT NULL,
-    status      ARTICLE_STATUS NOT NULL,
+    status      ARTICLE_STATUS   NOT NULL,
     title       VARCHAR(255)     NOT NULL UNIQUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Tags
+CREATE TABLE Tags
 (
     id   SERIAL,
     name VARCHAR(255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Article_tags
+CREATE TABLE Article_tags
 (
     id         SERIAL,
     tag_id     INTEGER NOT NULL,
@@ -61,7 +62,7 @@ CREATE TABLE wonks_ru.Article_tags
     PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Favourites
+CREATE TABLE Favourites
 (
     id         SERIAL,
     user_id    INTEGER NOT NULL,
@@ -69,7 +70,7 @@ CREATE TABLE wonks_ru.Favourites
     PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Ratings
+CREATE TABLE Ratings
 (
     id         SERIAL,
     user_id    INTEGER NOT NULL,
@@ -78,16 +79,17 @@ CREATE TABLE wonks_ru.Ratings
     PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Notifications
+CREATE TABLE Notifications
 (
     id      SERIAL,
     user_id INTEGER NOT NULL,
     text    TEXT    NOT NULL,
+    is_read BOOLEAN NOT NULL DEFAULT false,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Subscriptions
+CREATE TABLE Subscriptions
 (
     id                  SERIAL,
     follower_id         INTEGER NOT NULL,
@@ -96,7 +98,7 @@ CREATE TABLE wonks_ru.Subscriptions
     PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Reports
+CREATE TABLE Reports
 (
     id          SERIAL,
     reporter_id INTEGER            NOT NULL,
@@ -107,93 +109,93 @@ CREATE TABLE wonks_ru.Reports
     PRIMARY KEY (id)
 );
 
-CREATE TABLE wonks_ru.Roles
+CREATE TABLE Roles
 (
     id         SERIAL,
     name       VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
-ALTER TABLE wonks_ru.Articles
-    ADD FOREIGN KEY (user_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Articles
+    ADD FOREIGN KEY (user_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Articles
-    ADD FOREIGN KEY (category_id) REFERENCES wonks_ru.Categories (id)
+ALTER TABLE Articles
+    ADD FOREIGN KEY (category_id) REFERENCES Categories (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Comments
-    ADD FOREIGN KEY (article_id) REFERENCES wonks_ru.Articles (id)
+ALTER TABLE Comments
+    ADD FOREIGN KEY (article_id) REFERENCES Articles (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Comments
-    ADD FOREIGN KEY (user_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Comments
+    ADD FOREIGN KEY (user_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Article_tags
-    ADD FOREIGN KEY (tag_id) REFERENCES wonks_ru.Tags (id)
+ALTER TABLE Article_tags
+    ADD FOREIGN KEY (tag_id) REFERENCES Tags (id)
         ON UPDATE CASCADE ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Article_tags
-    ADD FOREIGN KEY (article_id) REFERENCES wonks_ru.Articles (id)
+ALTER TABLE Article_tags
+    ADD FOREIGN KEY (article_id) REFERENCES Articles (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Favourites
-    ADD FOREIGN KEY (user_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Favourites
+    ADD FOREIGN KEY (user_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Favourites
-    ADD FOREIGN KEY (article_id) REFERENCES wonks_ru.Articles (id)
+ALTER TABLE Favourites
+    ADD FOREIGN KEY (article_id) REFERENCES Articles (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Ratings
-    ADD FOREIGN KEY (user_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Ratings
+    ADD FOREIGN KEY (user_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Ratings
-    ADD FOREIGN KEY (article_id) REFERENCES wonks_ru.Articles (id)
+ALTER TABLE Ratings
+    ADD FOREIGN KEY (article_id) REFERENCES Articles (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Notifications
-    ADD FOREIGN KEY (user_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Notifications
+    ADD FOREIGN KEY (user_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Subscriptions
-    ADD FOREIGN KEY (follower_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Subscriptions
+    ADD FOREIGN KEY (follower_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Subscriptions
-    ADD FOREIGN KEY (followed_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Subscriptions
+    ADD FOREIGN KEY (followed_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Reports
-    ADD FOREIGN KEY (reporter_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Reports
+    ADD FOREIGN KEY (reporter_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Reports
-    ADD FOREIGN KEY (target_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Reports
+    ADD FOREIGN KEY (target_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Users
-    ADD FOREIGN KEY (role_id) REFERENCES wonks_ru.Roles (id)
+ALTER TABLE Users
+    ADD FOREIGN KEY (role_id) REFERENCES Roles (id)
         ON UPDATE NO ACTION ON DELETE NO ACTION;
 
-ALTER TABLE wonks_ru.Subscriptions
-    ADD CONSTRAINT fk_subscriptions_follower FOREIGN KEY (follower_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Subscriptions
+    ADD CONSTRAINT fk_subscriptions_follower FOREIGN KEY (follower_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Subscriptions
-    ADD CONSTRAINT fk_subscriptions_followed FOREIGN KEY (followed_id) REFERENCES wonks_ru.Users (id)
+ALTER TABLE Subscriptions
+    ADD CONSTRAINT fk_subscriptions_followed FOREIGN KEY (followed_id) REFERENCES Users (id)
         ON UPDATE RESTRICT ON DELETE CASCADE;
 
-ALTER TABLE wonks_ru.Subscriptions
+ALTER TABLE Subscriptions
     ADD CONSTRAINT uq_follower_followed UNIQUE (follower_id, followed_id);
 
-ALTER TABLE wonks_ru.Article_tags
+ALTER TABLE Article_tags
     ADD CONSTRAINT uq_article_tags_article_tag UNIQUE (article_id, tag_id);
 
-ALTER TABLE wonks_ru.Favourites
+ALTER TABLE Favourites
     ADD CONSTRAINT uq_favourites_user_article UNIQUE (user_id, article_id);
 
-ALTER TABLE wonks_ru.Ratings
+ALTER TABLE Ratings
     ADD CONSTRAINT uq_ratings_user_article UNIQUE (user_id, article_id);

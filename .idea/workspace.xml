@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92ce1182-ff7a-477d-a821-d4e3a2497650" name="Changes" comment="" />
+    <list default="true" id="92ce1182-ff7a-477d-a821-d4e3a2497650" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7f08b93f-1760-44a5-a630-9ac8cdd7d067/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7f08b93f-1760-44a5-a630-9ac8cdd7d067/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Записка.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/RU/DemoData.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/DemoData.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/RU/Functions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Functions.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/RU/Indexes.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Indexes.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/RU/QA.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/QA.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/RU/Roles.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Roles.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/RU/Scenario.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Scenario.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/RU/Tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Tables.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/RU/Triggers.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Triggers.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/RU/Views.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Views.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/schemes.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/schemes.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,35 +54,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.laravel-idea.search-composer-json": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/alinakravcuk/Desktop/Personal/Personal_Projects/database_wonks",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "service.view.auto.scroll.to.source": "true",
-    "settings.editor.selected.configurable": "database.query.execution",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenDatabaseViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.laravel-idea.search-composer-json&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/alinakravcuk/Desktop/Personal/Personal_Projects/database_wonks&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;service.view.auto.scroll.to.source&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "oracle",
-      "mysql_aurora",
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;oracle&quot;,
+      &quot;mysql_aurora&quot;,
+      &quot;postgresql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
-      "PostgreSQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;PostgreSQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />

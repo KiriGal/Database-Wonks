@@ -2,10 +2,10 @@ set search_path = "wonks_ru";
 
 CREATE OR REPLACE VIEW wonks_ru.view_article_comments AS
 SELECT
-    c.id AS comment_id,           -- ALIAS CORRECTED
-    a.slug::TEXT AS article_slug, -- Cast
-    cu.username::TEXT AS username, -- Cast
-    c.content::TEXT AS content,    -- Cast
+    c.id AS comment_id,
+    a.slug::TEXT AS article_slug,
+    cu.username::TEXT AS username,
+    c.content::TEXT AS content,
     c.created_at
 FROM wonks_ru.Comments c
          JOIN wonks_ru.Users cu on cu.id = c.user_id
@@ -30,7 +30,8 @@ SELECT
     u.id AS recipient_id,
     u.username::TEXT AS recipient_username,
     n.text::TEXT AS text,
-    n.created_at
+    n.created_at,
+    n.is_read
 FROM wonks_ru.Notifications n
          JOIN wonks_ru.Users u ON n.user_id = u.id
 ORDER BY n.created_at DESC, n.id DESC;
@@ -72,11 +73,11 @@ SELECT
     articles.image::TEXT AS image,
     category.name::TEXT AS category_name,
     COALESCE(array_agg(DISTINCT tag.name::TEXT) FILTER (WHERE tag.name IS NOT NULL), '{}') AS tags,
-    ROUND(AVG(rating.value)::numeric, 2) as rating
+    COALESCE(ROUND(AVG(rating.value)::numeric, 2), 0.00) as rating
 FROM wonks_ru.Articles articles
          LEFT JOIN wonks_ru.Ratings rating ON articles.id = rating.article_id
          LEFT JOIN wonks_ru.Categories category ON articles.category_id = category.id
          LEFT JOIN wonks_ru.Article_tags article_tag ON articles.id = article_tag.article_id
          LEFT JOIN wonks_ru.Tags tag ON article_tag.tag_id = tag.id
-GROUP BY articles.id, articles.slug, articles.title, articles.content, articles.short_description, articles.created_at, articles.updated_at, articles.image, category.name -- Essential GROUP BY clause
+GROUP BY articles.id, articles.slug, articles.title, articles.content, articles.short_description, articles.created_at, articles.updated_at, articles.image, category.name
 ORDER BY articles.id DESC;

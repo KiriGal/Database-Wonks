@@ -1,28 +1,19 @@
 set search_path = "wonks_ru";
 ---------------------- Вставка 100000 строк ----------------------
+SELECT setval(
+               pg_get_serial_sequence('wonks_ru."articles"', 'id'),
+               COALESCE((SELECT MAX(id) FROM wonks_ru.articles), 1)
+       );
+
 CREATE OR REPLACE FUNCTION insert_articles() RETURNS VOID AS $$
 DECLARE
     i INTEGER;
-    s article_status_t;
+    s ARTICLE_STATUS;
 BEGIN
     FOR i IN 30..100000 LOOP
-            s := (ARRAY[
-                'moderated'::article_status_t,
-                'published'::article_status_t,
-                'rejected'::article_status_t
-                ])[floor(random() * 3 + 1)];
-
-            INSERT INTO Articles (slug, user_id, content, image, category_id, status, ratings, title)
-            VALUES (
-                       'slug_' || i,
-                       1,
-                       'content_' || i,
-                       DEFAULT,
-                       1,
-                       s,
-                       floor(random() * 5 + 1),
-                       'title_' || i
-                   );
+            s := (ARRAY['moderated'::ARTICLE_STATUS,'published'::ARTICLE_STATUS,'rejected'::ARTICLE_STATUS])[floor(random() * 3 + 1)];
+            INSERT INTO articles ( slug, user_id, content, short_description, image, category_id, status, title)
+            VALUES ('slug_' || i,1, 'content_' || i, 'short_description_' || i, DEFAULT,1,s,'title_' || i);
         END LOOP;
 END;
 $$ LANGUAGE plpgsql;
