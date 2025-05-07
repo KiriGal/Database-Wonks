@@ -5,23 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92ce1182-ff7a-477d-a821-d4e3a2497650" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/7f08b93f-1760-44a5-a630-9ac8cdd7d067/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/7f08b93f-1760-44a5-a630-9ac8cdd7d067/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Записка.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RU/DemoData.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/DemoData.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/RU/Functions.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Functions.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RU/Indexes.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Indexes.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RU/QA.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/QA.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RU/Roles.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Roles.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RU/Scenario.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Scenario.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RU/Tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Tables.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RU/Triggers.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Triggers.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/RU/Views.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Views.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/schemes.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/schemes.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/RU/Procedures.sql" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/RU/Procedures.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
